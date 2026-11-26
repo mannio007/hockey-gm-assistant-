@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101820">
+  <meta name="description" content="Hockey GM Assistant – NHL-kokoonpanot, hinnat ja ottelumäärät.">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <title>Hockey GM Assistant</title>
+  <style>
+    :root{color-scheme:dark;--bg:#101820;--panel:#192630;--line:#344550;--muted:#a9bac5;--accent:#69b7ff}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f4f7f9;font:16px system-ui,-apple-system,Segoe UI,sans-serif}
+    header{padding:22px 16px 16px;background:#0b1218;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:2}
+    h1{font-size:22px;margin:0}header p{color:var(--muted);margin:5px 0 0;font-size:13px}
+    main{max-width:900px;margin:auto;padding:16px;display:grid;gap:14px}
+    .panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px}
+    .notice{border-left:4px solid #e6b450}
+    .muted{color:var(--muted);font-size:14px;line-height:1.5}
+    .controls{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    input,select{width:100%;padding:12px;border-radius:9px;border:1px solid var(--line);background:#0e171e;color:#fff;font:inherit}
+    label{display:block;color:var(--muted);font-size:12px;margin:0 0 6px}
+    .status{display:inline-block;padding:4px 8px;border-radius:20px;background:#493b1e;color:#ffdc91;font-size:12px}
+    a{color:var(--accent)}.sources{display:flex;flex-wrap:wrap;gap:12px}
+    @media(max-width:520px){.controls{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<header><h1>🏒 Hockey GM Assistant</h1><p>NHL-kokoonpanot · Hockey GM -hinnat · pelijakson ottelut</p></header>
+<main>
+  <section class="panel">
+    <strong>Oma NHL-apuri</strong>
+    <p class="muted">Tämä on sovelluksen ensimmäinen asennettava versio. Seuraavaksi yhdistetään ajantasaiset pelaaja-, kokoonpano- ja otteluohjelmatiedot.</p>
+    <span class="status">Tietolähteitä ei ole vielä kytketty</span>
+  </section>
+  <section class="panel">
+    <strong>Pelaajahaku</strong>
+    <p class="muted">Kun tietolähteet on yhdistetty, tästä voit hakea aktiivisissa NHL-kokoonpanoissa olevia pelaajia ja suodattaa heitä joukkueen, pelipaikan, hinnan, ketjusijoituksen sekä jäljellä olevien otteluiden mukaan.</p>
+    <div class="controls">
+      <div><label for="player">Pelaajan nimi</label><input id="player" placeholder="Hae pelaajaa" disabled></div>
+      <div><label for="team">Joukkue</label><select id="team" disabled><option>Kaikki joukkueet</option></select></div>
+      <div><label for="pos">Pelipaikka</label><select id="pos" disabled><option>Kaikki pelipaikat</option></select></div>
+      <div><label for="sort">Järjestä</label><select id="sort" disabled><option>Ottelumäärä</option><option>Hinta</option><option>Ketjusijoitus</option></select></div>
+    </div>
+  </section>
+  <section class="panel notice">
+    <strong>Seuraava vaihe: tietojen automaattinen päivitys</strong>
+    <p class="muted">Tavoitteena on hakea pelaajahinnat Hockey GM:stä, ketjut ja maalivahtien tilanteet Daily Faceoffista sekä pelijakson ottelumäärät GM Koutsista. Näitä tietoja ei näytetä ennen kuin niiden haku ja päivitysaika voidaan varmistaa.</p>
+  </section>
+  <section class="panel">
+    <strong>Tietolähteet</strong>
+    <div class="sources muted">
+      <a href="https://hockeygm.fi/">Hockey GM</a>
+      <a href="https://www.dailyfaceoff.com/">Daily Faceoff</a>
+      <a href="https://gmkoutsi.com/nhl-pelipaivakalenteri/">GM Koutsi</a>
+      <a href="https://www.nhl.com/">NHL</a>
+    </div>
+  </section>
+</main>
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {}));
+  }
+</script>
+</body>
+</html>
